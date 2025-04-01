@@ -1,4 +1,4 @@
-[Munts Technologies](http://tech.munts.com) [Alire](https://alire.ada.dev) Goodies
+[Munts Technologies](https://tech.munts.com) [Alire](https://alire.ada.dev) Goodies
 ==================================================================================
 
 ------------------------------------------------------------------------
