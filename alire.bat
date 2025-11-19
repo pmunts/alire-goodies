@@ -2,7 +2,7 @@
 
 REM Set the PATH environment variable for using Alire on Windows
 
-REM Copyright (C)2021-2024, Philip Munts, President, Munts AM Corp.
+REM Copyright (C)2021-2025, Philip Munts, President, Munts AM Corp.
 REM
 REM Redistribution and use in source and binary forms, with or without
 REM modification, are permitted provided that the following conditions are met:
@@ -24,4 +24,10 @@ REM POSSIBILITY OF SUCH DAMAGE.
 
 REM Set some environment variables
 
-SET PATH=C:\WINDOWS;C:\WINDOWS\system32;C:\WINDOWS\System32\Wbem;C:\PROGRA~1\Alire\bin;%HOMEDRIVE%%HOMEPATH%\.cache\alire\msys64\usr\bin
+SET ALIRE_GNAT=%HOMEDRIVE%%HOMEPATH%\AppData\Local\alire\gnat
+SET ALIRE_GPRBUILD=%HOMEDRIVE%%HOMEPATH%\AppData\Local\alire\gprbuild
+SET ALIRE_MSYS64=%HOMEDRIVE%%HOMEPATH%\AppData\Local\alire\cache\msys64
+
+REM Set path
+
+SET PATH=C:\PROGRA~1\Alire\bin;%ALIRE_GNAT%\bin;%ALIRE_GPRBUILD%\bin;%ALIRE_MSYS64%\usr\bin
