@@ -28,6 +28,9 @@ SET ALIRE_GNAT=%HOMEDRIVE%%HOMEPATH%\AppData\Local\alire\gnat
 SET ALIRE_GPRBUILD=%HOMEDRIVE%%HOMEPATH%\AppData\Local\alire\gprbuild
 SET ALIRE_MSYS64=%HOMEDRIVE%%HOMEPATH%\AppData\Local\alire\cache\msys64
 
+IF "%LIBSIMPLEIO%" == "" SET LIBSIMPLEIO=C:\PROGRA~1\MuntsOS\libsimpleio
+IF "%MUNTSOS%"     == "" SET MUNTSOS=C:\PROGRA~1\MuntsOS\muntsos
+
 REM Set path
 
-SET PATH=C:\PROGRA~1\Alire\bin;%ALIRE_GNAT%\bin;%ALIRE_GPRBUILD%\bin;%ALIRE_MSYS64%\usr\bin
+SET PATH=C:\PROGRA~1\Alire\bin;%ALIRE_GNAT%\bin;%ALIRE_GPRBUILD%\bin;%ALIRE_MSYS64%\usr\bin;%PATH%
