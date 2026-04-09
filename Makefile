@@ -1,5 +1,3 @@
-# Makefile to build an Ada program for the RP2040 microcontroller
-
 # Copyright (C)2026, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
