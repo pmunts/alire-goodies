@@ -22,10 +22,10 @@ $(PKGDIR):
 	sed -i s/@@NAME@@/$(PKGNAME)/g			$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVERSION)/g		$(PKGDIR)/DEBIAN/control
 	mkdir -p					$(PKGDIR)/usr/local/bin
-	install -cm 0555 alire-clean			$(PKGDIR)/usr/localbin
-	install -cm 0555 alire-distclean		$(PKGDIR)/usr/localbin
-	install -cm 0555 alire-rename			$(PKGDIR)/usr/localbin
-	install -cm 0555 alire-rp2040-newproject	$(PKGDIR)/usr/localbin
+	install -cm 0555 alire-clean			$(PKGDIR)/usr/local/bin
+	install -cm 0555 alire-distclean		$(PKGDIR)/usr/local/bin
+	install -cm 0555 alire-rename			$(PKGDIR)/usr/local/bin
+	install -cm 0555 alire-rp2040-newproject	$(PKGDIR)/usr/local/bin
 
 clean:
 	-rm -rf $(PKGDIR) $(PKGFILE)
