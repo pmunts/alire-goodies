@@ -25,7 +25,7 @@ $(PKGDIR):
 	install -cm 0555 alire-clean				$(PKGDIR)/usr/local/bin
 	install -cm 0555 alire-distclean			$(PKGDIR)/usr/local/bin
 	install -cm 0555 alire-rename				$(PKGDIR)/usr/local/bin
-	install -cm 0555 alire-rp2040-newproject-embedded	$(PKGDIR)/usr/local/bin
+	install -cm 0555 alire-rp2040-embedded-newproject	$(PKGDIR)/usr/local/bin
 
 clean:
 	-rm -rf $(PKGDIR) $(PKGFILE)
