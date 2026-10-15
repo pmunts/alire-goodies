@@ -1,0 +1,31 @@
+# Makefile for munts-utils Debian package
+
+BUILDNUM	?= 1
+OSNAME		?= unknown
+PKGNAME		= alire-goodies
+PKGVERSION	:= $(shell date +%Y.%j).$(BUILDNUM)
+PKGARCH		:= all
+PKGDIR		:= $(PKGNAME)-$(PKGVERSION)-$(OSNAME)-$(PKGARCH)
+PKGFILE		:= $(PKGDIR).deb
+
+DESTDIR		= $(PKGDIR)/usr/local/bin
+
+default: $(PKGFILE)
+
+$(PKGFILE): $(PKGDIR)
+	fakeroot dpkg-deb --build $(PKGDIR)
+
+$(PKGDIR):
+	mkdir -p						$(PKGDIR)/DEBIAN
+	install -cm 0444 control				$(PKGDIR)/DEBIAN
+	sed -i s/@@ARCH@@/$(PKGARCH)/g				$(PKGDIR)/DEBIAN/control
+	sed -i s/@@NAME@@/$(PKGNAME)/g				$(PKGDIR)/DEBIAN/control
+	sed -i s/@@VERSION@@/$(PKGVERSION)/g			$(PKGDIR)/DEBIAN/control
+	mkdir -p						$(PKGDIR)/usr/local/bin
+	install -cm 0555 alire-clean				$(PKGDIR)/usr/local/bin
+	install -cm 0555 alire-distclean			$(PKGDIR)/usr/local/bin
+	install -cm 0555 alire-rename				$(PKGDIR)/usr/local/bin
+	install -cm 0555 alire-rp2040-newproject-embedded	$(PKGDIR)/usr/local/bin
+
+clean:
+	-rm -rf $(PKGDIR) $(PKGFILE)
