@@ -22,25 +22,38 @@
 
 ShowHelp() {
   echo ""
-  echo "Alire RP2040 ARM Microcontroller Project Creator"
+  echo "Alire RP2040 ARM Microcontroller Embedded Profile Project Creator"
   echo ""
   if [ $# -eq 1 ]; then
     echo $1
     echo ""
   fi
-  echo "Usage: alire-newproject-rp2040 <program name> embedded|light_tasking"
+  echo "Usage: alire-newproject-rp2040 <project name>"
   echo ""
   exit 1
 }
 
-progname=$1
-profile=$2
-
 # Validate parameters
 
-test $# -ne 2 && ShowHelp
-test -e munts_rp2040_firmware_${profile}_* && ShowHelp "ERROR: munts_rp2040_firmware_${profile} already exists."
-test -e ${progname} && ShowHelp "ERROR: ${progname} already exists."
+test $# -ne 1 && ShowHelp
+test -e munts_rp2040_firmware_embedded_* && ShowHelp "ERROR: munts_rp2040_firmware_embedded already exists."
+test -e ${1} && ShowHelp "ERROR: ${1} already exists."
 
-alr -n get munts_rp2040_firmware_${profile}
-alire-rename munts_rp2040_firmware_${profile}_* ${progname}
+# Get Alire project template crate
+
+alr -n get munts_rp2040_firmware_embedded
+
+# Rename project
+
+alire-rename munts_rp2040_firmware_embedded_* ${1}
+
+# Remove template flotsam from alire.toml
+
+sed -i '0,/^\website = /d' ${1}/alire.toml
+
+# Regenerate stuff now missing from alire.toml
+
+sed -i "1 i\executables = [\"${1}\"]"          ${1}/alire.toml
+sed -i "1 i\version     = \"1.0.0\""           ${1}/alire.toml
+sed -i "1 i\description = \"RP2040 Firmware\"" ${1}/alire.toml
+sed -i "1 i\name        = \"test_led\""        ${1}/alire.toml
