@@ -1,1 +1,59 @@
-../../ARM/alire/RP2040/scripts/alire-rp2040-embedded-newproject
+# !/bin.sh
+
+# Copyright (C)2026, Philip Munts dba Munts Technologies.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+ShowHelp() {
+  echo ""
+  echo "RP2040 Embedded Profile Firmware Alire Project Creator"
+  echo ""
+  if [ $# -eq 1 ]; then
+    echo $1
+    echo ""
+  fi
+  echo "Usage: ${0} <project name>"
+  echo ""
+  exit 1
+}
+
+# Validate parameters
+
+test $# -ne 1 && ShowHelp
+test -e munts_rp2040_firmware_embedded_* && ShowHelp "ERROR: munts_rp2040_firmware_embedded already exists."
+test -e ${1} && ShowHelp "ERROR: ${1} already exists."
+
+# Get Alire project template crate
+
+alr -n get munts_rp2040_firmware_embedded
+
+# Rename project
+
+alire-rename munts_rp2040_firmware_embedded_* ${1}
+
+# Remove template flotsam from alire.toml
+
+sed -i '0,/^\website = /d' ${1}/alire.toml
+
+# Regenerate stuff now missing from alire.toml
+
+sed -i "1 i\executables = [\"${1}\"]"                           ${1}/alire.toml
+sed -i "1 i\version     = \"1.0.0\""                            ${1}/alire.toml
+sed -i "1 i\description = \"RP2040 Embedded Profile Firmware\"" ${1}/alire.toml
+sed -i "1 i\name        = \"${1}\""                             ${1}/alire.toml
